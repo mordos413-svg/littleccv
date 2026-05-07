@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammed Zayed — Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.24.0/dist/tabler-icons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: #0a0a0a;
+      color: #e8e6e0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 860px;
+    }
+
+    /* TOP */
+    .top {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 0.5px solid #1e1e1e;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      border: 1.5px solid #2a2a2a;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #444;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f0ede6;
+      letter-spacing: -0.02em;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      color: #c8a96e;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .about {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .item {
+      padding: 14px 0;
+      border-bottom: 0.5px solid #141414;
+    }
+
+    .item:last-child { border-bottom: none; }
+
+    .item-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #c8c4bc;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .item-sub {
+      font-size: 11px;
+      color: #3a3a3a;
+      font-family: 'DM Mono', monospace;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .item-detail {
+      font-size: 12px;
+      color: #4a4a4a;
+      line-height: 1.7;
+    }
+
+    .metric {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 10px;
+      font-family: 'DM Mono', monospace;
+      background: #121008;
+      border: 0.5px solid #2e2a14;
+      color: #c8a96e;
+      padding: 3px 10px;
+      border-radius: 3px;
+    }
+
+    /* CERT BUTTONS */
+    .cert-link {
+      font-family: 'Syne', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #c8c4bc;
+      text-decoration: none;
+      background: none;
+      border: none;
+      border-bottom: 0.5px solid #2a2a2a;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .cert-link:hover {
+      color: #c8a96e;
+      border-color: #c8a96e;
+    }
+
+    /* DIVIDER */
+    hr {
+      border: none;
+      border-top: 0.5px solid #161616;
+      margin: 2rem 0;
+    }
+
+    /* LANGUAGES */
+    .lang-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0.75rem;
+    }
+
+    .lang {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      padding: 7px 13px;
+      border-radius: 4px;
+      background: #0e0e0e;
+      border: 0.5px solid #1c1c1c;
+      color: #555;
+    }
+
+    .lang i { font-size: 16px; }
+
+    /* SOCIAL */
+    .social-row {
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      color: #3a3a3a;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .social-link:hover { color: #c8a96e; }
+    .social-link i { font-size: 16px; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 760px;
+      width: 92%;
+    }
+
+    .lightbox-inner img {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      border: 0.5px solid #333;
+      color: #888;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s;
+    }
+
+    .lightbox-close:hover { color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .top { flex-direction: column; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TOP -->
+  <div class="top">
+    <div class="avatar">
+      <!-- Save your photo as profile.jpg in the same folder -->
+      <img src="profile.jpg" alt="Mohammed Zayed" onerror="this.parentElement.textContent='photo'" />
+    </div>
+    <div>
+      <p class="name">Mohammed Zayed</p>
+      <p class="subtitle">Information Systems · Class of 2027</p>
+      <p class="about">Information Systems student focused on databases, low-level tooling, and reverse engineering. I build native DLL extensions, analyze binaries, and create tools people actually use.</p>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- PROJECTS -->
+    <div>
+      <p class="section-label">Projects</p>
+
+      <div class="item">
+        <span class="item-name">Runtime Behavior Modification System</span>
+        <span class="item-sub">Binary analysis · function hooking · runtime patching</span>
+        <span class="item-detail">Static binary analysis using Ghidra to identify and hook compiled executable functions, enabling targeted runtime behavior modification.</span>
+        <span class="metric">38,000+ users</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">CSV-Configured Native Plugin</span>
+        <span class="item-sub">Native DLL · CSV data layer · HUD extension</span>
+        <span class="item-detail">Developed a native DLL plugin for a real-time 3D application, using a CSV-driven configuration layer for live parameter tuning and a custom HUD extension system.</span>
+      </div>
+
+    </div>
+
+    <!-- CERTIFICATES -->
+    <div>
+      <p class="section-label">Certificates</p>
+
+      <div class="item">
+        <span class="item-name">
+          <a class="cert-link" href="https://www.credly.com/badges/831b8323-b738-47ae-8995-1a2140fa8618" target="_blank">
+            Python Essentials 1 <i class="ti ti-external-link" style="font-size:11px"></i>
+          </a>
+        </span>
+        <span class="item-sub">Cisco Networking Academy · Dec 2024</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          <!-- Save your Oracle certificate image as oracle_cert.jpg in the same folder -->
+          <button class="cert-link" onclick="openLightbox('oracle_cert.jpg')">
+            Database Foundations <i class="ti ti-photo" style="font-size:11px"></i>
+          </button>
+        </span>
+        <span class="item-sub">Oracle Academy · Dec 2024</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <hr />
+
+  <!-- LANGUAGES -->
+  <div style="margin-bottom: 2rem;">
+    <p class="section-label">Familiar with</p>
+    <div class="lang-grid">
+      <span class="lang"><i class="devicon-python-plain" style="color:#4B8BBE"></i>Python</span>
+      <span class="lang"><i class="devicon-html5-plain" style="color:#e34c26"></i>HTML</span>
+      <span class="lang"><i class="devicon-lua-plain" style="color:#7b7fb5"></i>Lua</span>
+      <span class="lang"><i class="devicon-xml-plain" style="color:#f16529"></i>XML / CSV</span>
+      <span class="lang"><i class="devicon-cplusplus-plain" style="color:#00599C"></i>C++</span>
+      <span class="lang"><i class="devicon-rust-original" style="color:#ce422b"></i>Rust</span>
+      <span class="lang"><i class="devicon-javascript-plain" style="color:#f0db4f"></i>JavaScript</span>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- SOCIAL -->
+  <div class="social-row">
+    <a class="social-link" href="https://www.linkedin.com/in/mohammedd-zayed-alsahli-498117346/" target="_blank">
+      <i class="ti ti-brand-linkedin"></i>LinkedIn
+    </a>
+    <a class="social-link" href="https://www.nexusmods.com/eldenring/users/149725483" target="_blank">
+      <i class="ti ti-external-link"></i>Nexus Mods
+    </a>
+  </div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">
+      <i class="ti ti-x"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Certificate" />
+  </div>
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-img').src = '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+</body>
+</html>
