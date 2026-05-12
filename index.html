@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohammed Zayed Alsahli</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #0b0704;
+      color: #e0d0bc;
+      overflow: hidden;
+    }
+
+    #bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* ══════════════════════
+       SIDEBAR — always vertical
+    ══════════════════════ */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      border-right: 0.5px solid #251208;
+      background: rgba(9,5,3,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+
+    .sb-profile {
+      padding: 1.75rem 1.4rem 1.5rem;
+      border-bottom: 0.5px solid #1e0e06;
+    }
+    .avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #180c06;
+      border: 1.5px solid #3a1a08;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-family: 'DM Mono', monospace; color: #5a3020;
+      margin-bottom: 0.8rem;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sb-name {
+      font-size: 13px; font-weight: 700;
+      color: #f0e0cc; line-height: 1.4; letter-spacing: -0.01em;
+    }
+    .sb-role {
+      font-size: 9.5px; font-family: 'DM Mono', monospace;
+      color: #5a2a14; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-top: 4px;
+    }
+
+    .nav {
+      flex: 1;
+      padding: 1rem 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 0.7rem 1.4rem; font-size: 11px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; color: #3a2010; cursor: pointer; border-left: 2px solid transparent; transition: all 0.2s; user-select: none; }
+    .nav-item i { font-size: 15px; flex-shrink: 0; }
+    .nav-item:hover { background: rgba(255,255,255,0.04); }
+
+    .nav-item[data-id="about"]:hover,
+    .nav-item[data-id="about"].active { color: #e8a060; border-left-color: #c07030; background: rgba(192,112,48,0.1); }
+
+    .nav-item[data-id="projects"]:hover,
+    .nav-item[data-id="projects"].active { color: #6090e0; border-left-color: #3060c0; background: rgba(48,96,192,0.1); }
+
+    .nav-item[data-id="experience"]:hover,
+    .nav-item[data-id="experience"].active { color: #60c080; border-left-color: #30a050; background: rgba(48,160,80,0.1); }
+
+    .nav-item[data-id="skills"]:hover,
+    .nav-item[data-id="skills"].active { color: #b070e0; border-left-color: #8040c0; background: rgba(128,64,192,0.1); }
+
+    .nav-item[data-id="certificates"]:hover,
+    .nav-item[data-id="certificates"].active { color: #e0c040; border-left-color: #c0a020; background: rgba(192,160,32,0.1); }
+
+    .nav-item.active { font-weight: 600; }
+
+    .sb-links {
+      padding: 1.1rem 1.4rem;
+      border-top: 0.5px solid #1e0e06;
+      display: flex; gap: 0.9rem;
+    }
+    .sb-links a {
+      color: #3a1a0a; font-size: 17px;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .sb-links a:hover { color: #b05030; }
+
+    /* Mobile hamburger */
+    .burger {
+      display: none;
+      position: fixed;
+      top: 1rem; left: 1rem;
+      z-index: 20;
+      width: 36px; height: 36px;
+      background: rgba(9,5,3,0.92);
+      border: 0.5px solid #251208;
+      border-radius: 6px;
+      align-items: center; justify-content: center;
+      cursor: pointer; color: #8a4020; font-size: 18px;
+    }
+    .overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 9;
+    }
+
+    /* ══════════════════════
+       MAIN
+    ══════════════════════ */
+    .main {
+      flex: 1;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 3rem 3.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: #251208 transparent;
+    }
+    .main::-webkit-scrollbar { width: 3px; }
+    .main::-webkit-scrollbar-thumb { background: #251208; }
+
+    .sec { display: none; }
+    .sec.on { display: block; animation: rise 0.35s ease; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .sec-label {
+      font-size: 10px; font-family: 'DM Mono', monospace;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #4a2010; margin-bottom: 2rem;
+      padding-bottom: 0.75rem; border-bottom: 0.5px solid #1e0e06;
+    }
+
+    /* ══════════════════════
+       ABOUT
+    ══════════════════════ */
+    .bio {
+      font-size: 14.5px; color: #7a5a48;
+      line-height: 1.9; max-width: 560px;
+      margin-bottom: 2.5rem; font-weight: 400;
+    }
+    .bio strong { color: #c8a070; font-weight: 600; }
+
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.7rem; max-width: 480px;
+    }
+    .info-card {
+      background: rgba(16,9,5,0.8);
+      border: 0.5px solid #251208;
+      border-radius: 5px; padding: 0.85rem 1.1rem;
+    }
+    .info-lbl {
+      font-size: 9px; font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4a2010; margin-bottom: 3px;
+    }
+    .info-val { font-size: 13px; font-weight: 600; color: #c8a060; }
+
+    /* ══════════════════════
+       PROJECTS
+    ══════════════════════ */
+    .proj-list { max-width: 620px; }
+    .proj {
+      display: flex; gap: 1.75rem;
+      padding: 1.75rem 0; border-bottom: 0.5px solid #180c04;
+    }
+    .proj:last-child { border-bottom: none; }
+    .proj-n {
+      font-size: 32px; font-family: 'DM Mono', monospace;
+      color: #220e04; flex-shrink: 0; min-width: 44px;
+      line-height: 1; padding-top: 3px;
+    }
+    .proj-title { font-size: 15px; font-weight: 600; color: #d8c8a8; margin-bottom: 4px; }
+    .proj-tags { font-size: 10.5px; font-family: 'DM Mono', monospace; color: #4a2a18; margin-bottom: 8px; }
+    .proj-body { font-size: 13px; color: #5a4030; line-height: 1.75; }
+    .proj-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 10px; font-size: 10px;
+      font-family: 'DM Mono', monospace;
+      background: #140804; border: 0.5px solid #5a1e0c;
+      color: #a05828; padding: 3px 10px; border-radius: 3px;
+    }
+
+    /* ══════════════════════
+       SKILLS — creative
+    ══════════════════════ */
+    .skills-section { max-width: 640px; }
+
+    .sk-group-title {
+      font-size: 10px; font-family: 'DM Mono', monospace;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #4a2010; margin-bottom: 1.25rem;
+    }
+
+    /* Tech skills — icon tile grid */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.7rem;
+      margin-bottom: 2.5rem;
+    }
+    .tech-tile {
+      background: rgba(14,8,4,0.9);
+      border: 0.5px solid #251208;
+      border-radius: 8px;
+      padding: 1rem 0.5rem 0.85rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .tech-tile:hover {
+      border-color: #5a1a08;
+      transform: translateY(-3px);
+    }
+    .tech-tile i { font-size: 26px; }
+    .tech-tile span {
+      font-size: 10.5px; font-family: 'DM Mono', monospace;
+      color: #6a4838; text-align: center; line-height: 1.3;
+    }
+
+    /* Professional skills — horizontal cards */
+    .prof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+    .prof-card {
+      background: rgba(14,8,4,0.9);
+      border: 0.5px solid #251208;
+      border-left: 2px solid #7a1408;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.1rem;
+      transition: border-color 0.2s;
+    }
+    .prof-card:hover { border-color: #a02818; border-left-color: #c03020; }
+    .prof-card-title { font-size: 12.5px; font-weight: 600; color: #b89060; margin-bottom: 4px; }
+    .prof-card-body { font-size: 11.5px; color: #4a3020; line-height: 1.6; }
+
+    /* ══════════════════════
+       EXPERIENCE
+    ══════════════════════ */
+    .exp-item {
+      display: flex; gap: 1.25rem;
+      padding: 1.75rem 0; border-bottom: 0.5px solid #180c04;
+      max-width: 600px;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-dot {
+      width: 10px; height: 10px; flex-shrink: 0;
+      border-radius: 50%; background: #7a1408;
+      border: 2px solid #0b0704;
+      box-shadow: 0 0 8px #7a140870;
+      margin-top: 5px;
+    }
+    .exp-title { font-size: 14px; font-weight: 600; color: #d0c0a0; margin-bottom: 3px; }
+    .exp-sub {
+      font-size: 10.5px; font-family: 'DM Mono', monospace;
+      color: #4a2810; margin-bottom: 7px;
+    }
+    .exp-body { font-size: 13px; color: #5a4030; line-height: 1.75; }
+
+    /* ══════════════════════
+       CERTIFICATES
+    ══════════════════════ */
+    .cert-list { max-width: 480px; }
+    .cert-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 0; border-bottom: 0.5px solid #180c04;
+    }
+    .cert-row:last-child { border-bottom: none; }
+    .cert-ico {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 6px; background: #140804;
+      border: 0.5px solid #351808;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; color: #7a2010;
+    }
+    .cert-name {
+      font-size: 13.5px; font-weight: 600; color: #c8a070;
+      background: none; border: none;
+      font-family: 'Inter', Arial, sans-serif;
+      cursor: pointer; padding: 0;
+      display: inline-flex; align-items: center; gap: 5px;
+      border-bottom: 0.5px solid #351808;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .cert-name:hover { color: #c06040; }
+    .cert-sub {
+      font-size: 11px; font-family: 'DM Mono', monospace;
+      color: #4a2818; margin-top: 3px;
+    }
+
+    /* ══════════════════════
+       LIGHTBOX
+    ══════════════════════ */
+    .lb {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92); z-index: 999;
+      align-items: center; justify-content: center;
+    }
+    .lb.on { display: flex; }
+    .lb-inner { position: relative; max-width: 700px; width: 92%; }
+    .lb-inner img { width: 100%; border-radius: 8px; display: block; }
+    .lb-x {
+      position: absolute; top: -13px; right: -13px;
+      width: 27px; height: 27px; border-radius: 50%;
+      background: #160a04; border: 0.5px solid #351808;
+      color: #806050; font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lb-x:hover { color: #fff; }
+
+    /* ══════════════════════
+       MOBILE
+    ══════════════════════ */
+    @media (max-width: 700px) {
+      body { overflow: auto; }
+      .shell { flex-direction: row; height: 100vh; }
+      .sidebar {
+        position: fixed; left: 0; top: 0;
+        transform: translateX(-100%);
+        height: 100vh; z-index: 10;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .overlay.open { display: block; }
+      .burger { display: flex; }
+      .main { padding: 3.5rem 1.25rem 2rem; height: 100vh; }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+      .prof-grid { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- Mobile burger -->
+<div class="burger" id="burger" onclick="toggleSidebar()">
+  <i class="ti ti-menu-2"></i>
+</div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="shell">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-profile">
+      <div class="avatar">
+        <img src="profile.jpg" alt="MZA" onerror="this.parentElement.textContent='MZA'"/>
+      </div>
+      <div class="sb-name">Mohammed Zayed<br>Alsahli</div>
+      <div class="sb-role">Information Systems · 2027</div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-item active" data-id="about" onclick="go('about',this)">
+        <i class="ti ti-user"></i>About
+      </div>
+      <div class="nav-item" data-id="projects" onclick="go('projects',this)">
+        <i class="ti ti-code"></i>Projects
+      </div>
+      <div class="nav-item" data-id="experience" onclick="go('experience',this)">
+        <i class="ti ti-briefcase"></i>Experience
+      </div>
+      <div class="nav-item" data-id="skills" onclick="go('skills',this)">
+        <i class="ti ti-layers"></i>Skills
+      </div>
+      <div class="nav-item" data-id="certificates" onclick="go('certificates',this)">
+        <i class="ti ti-certificate"></i>Certificates
+      </div>
+    </nav>
+
+    <div class="sb-links">
+      <a href="https://www.linkedin.com/in/mohammedd-zayed-alsahli-498117346/" target="_blank" title="LinkedIn">
+        <i class="ti ti-brand-linkedin"></i>
+      </a>
+      <a href="https://www.nexusmods.com/eldenring/users/149725483" target="_blank" title="Nexus Mods">
+        <i class="ti ti-external-link"></i>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+
+    <!-- ABOUT -->
+    <section class="sec on" id="s-about">
+      <p class="sec-label">About</p>
+      <p class="bio">
+        Information Systems student with a focus on <strong>databases</strong> and <strong>low-level systems</strong>.
+        I reverse engineer compiled binaries, build native extensions, and ship software
+        that real people use. Outside of university I work on independent projects
+        in binary analysis, native plugin development, and data systems.
+      </p>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-lbl">Degree</div>
+          <div class="info-val">Information Systems</div>
+        </div>
+        <div class="info-card">
+          <div class="info-lbl">Graduation</div>
+          <div class="info-val">2027</div>
+        </div>
+        <div class="info-card">
+          <div class="info-lbl">Focus</div>
+          <div class="info-val">Databases · Systems · RE</div>
+        </div>
+        <div class="info-card">
+          <div class="info-lbl">Location</div>
+          <div class="info-val">Saudi Arabia</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="sec" id="s-projects">
+      <p class="sec-label">Projects</p>
+      <div class="proj-list">
+
+        <div class="proj">
+          <div class="proj-n">01</div>
+          <div>
+            <div class="proj-title">Runtime Behavior Modification System</div>
+            <div class="proj-tags">Binary Analysis · Function Hooking · Runtime Patching</div>
+            <div class="proj-body">Static binary analysis using Ghidra to locate and hook functions inside compiled executables, enabling targeted runtime behavior modification without touching source code.</div>
+            <div class="proj-badge"><i class="ti ti-users" style="font-size:11px"></i>38,000+ active users</div>
+          </div>
+        </div>
+
+        <div class="proj">
+          <div class="proj-n">02</div>
+          <div>
+            <div class="proj-title">CSV-Configured Native Plugin</div>
+            <div class="proj-tags">Native DLL · CSV Data Layer · HUD Extension</div>
+            <div class="proj-body">Native DLL plugin for a real-time 3D application. Uses a CSV-driven configuration layer for live parameter control and ships a custom HUD extension system.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="sec" id="s-experience">
+      <p class="sec-label">Experience</p>
+
+      <div class="exp-item">
+        <div class="exp-dot"></div>
+        <div>
+          <div class="exp-title">Google Developer Student Club</div>
+          <div class="exp-sub">Member · University</div>
+          <div class="exp-body">Collaborated with a group on a session introducing Object-Oriented Programming concepts to fellow students.</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SKILLS -->
+    <section class="sec" id="s-skills">
+      <p class="sec-label">Skills</p>
+      <div class="skills-section">
+
+        <p class="sk-group-title">Technical</p>
+        <div class="tech-grid">
+          <div class="tech-tile">
+            <i class="devicon-python-plain" style="color:#4B8BBE"></i>
+            <span>Python</span>
+          </div>
+          <div class="tech-tile">
+            <i class="devicon-cplusplus-plain" style="color:#00599C"></i>
+            <span>C++</span>
+          </div>
+          <div class="tech-tile">
+            <i class="devicon-rust-plain" style="color:#ce422b"></i>
+            <span>Rust</span>
+          </div>
+          <div class="tech-tile">
+            <i class="devicon-html5-plain" style="color:#e34c26"></i>
+            <span>HTML / CSS</span>
+          </div>
+          <div class="tech-tile">
+            <i class="devicon-xml-plain" style="color:#e67e22"></i>
+            <span>XML / CSV</span>
+          </div>
+          <div class="tech-tile">
+            <i class="ti ti-database" style="color:#b06030;font-size:26px"></i>
+            <span>Database</span>
+          </div>
+          <div class="tech-tile">
+            <i class="ti ti-binary" style="color:#8b2a18;font-size:26px"></i>
+            <span>Ghidra / RE</span>
+          </div>
+        </div>
+
+        <p class="sk-group-title">Professional</p>
+        <div class="prof-grid">
+          <div class="prof-card">
+            <div class="prof-card-title">Software Delivery</div>
+            <div class="prof-card-body">Shipped and maintained software used by 38,000+ active users.</div>
+          </div>
+          <div class="prof-card">
+            <div class="prof-card-title">Systems-Level Thinking</div>
+            <div class="prof-card-body">Works at the binary and runtime level — inside systems, not just on top.</div>
+          </div>
+          <div class="prof-card">
+            <div class="prof-card-title">Community Impact</div>
+            <div class="prof-card-body">Published work adopted by other developers and covered in tech publications.</div>
+          </div>
+          <div class="prof-card">
+            <div class="prof-card-title">Cross-Stack Adaptability</div>
+            <div class="prof-card-body">Practical experience across compiled languages, scripting, web, and data formats.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section class="sec" id="s-certificates">
+      <p class="sec-label">Certificates</p>
+      <div class="cert-list">
+
+        <div class="cert-row">
+          <div class="cert-ico"><i class="ti ti-brand-python"></i></div>
+          <div>
+            <a class="cert-name" href="https://www.credly.com/badges/831b8323-b738-47ae-8995-1a2140fa8618" target="_blank">
+              Python Essentials 1 <i class="ti ti-external-link" style="font-size:11px"></i>
+            </a>
+            <div class="cert-sub">Cisco Networking Academy · Dec 2024</div>
+          </div>
+        </div>
+
+        <div class="cert-row">
+          <div class="cert-ico"><i class="ti ti-database"></i></div>
+          <div>
+            <button class="cert-name" onclick="openLB('oracle_cert.jpg')">
+              Database Foundations <i class="ti ti-photo" style="font-size:11px"></i>
+            </button>
+            <div class="cert-sub">Oracle Academy · Dec 2024</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB()">
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <button class="lb-x" onclick="closeLB()"><i class="ti ti-x"></i></button>
+    <img id="lb-img" src="" alt="Certificate"/>
+  </div>
+</div>
+
+<script>
+// ── SIDEBAR TOGGLE (mobile) ──
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+// ── TABS ──
+function go(id, el) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('on');
+  el.classList.add('active');
+  // close sidebar on mobile after click
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+// ── LIGHTBOX ──
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('on');
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('on');
+  document.getElementById('lb-img').src = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+// ══════════════════════════════
+//  FLOWING WAVE PARTICLES
+// ══════════════════════════════
+const cv = document.getElementById('bg');
+const cx = cv.getContext('2d');
+function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const WAVES = [
+  { yR: 0.28, amp: 85,  freq: 0.8,  phase: 0,   spd: 0.007, hue: 358, spread: 20, count: 260 },
+  { yR: 0.50, amp: 65,  freq: 1.05, phase: 2.1, spd: 0.005, hue:   8, spread: 15, count: 220 },
+  { yR: 0.74, amp: 95,  freq: 0.65, phase: 4.2, spd: 0.009, hue: 348, spread: 22, count: 280 },
+];
+
+// Sparse ambient floaters
+const FLOATERS = Array.from({length: 60}, () => ({
+  x: Math.random(), y: Math.random(),
+  vy: 0.0003 + Math.random() * 0.0006,
+  r: 0.6 + Math.random() * 1.2,
+  a: 0.06 + Math.random() * 0.18,
+}));
+
+let t = 0;
+
+function drawWaves() {
+  const W = cv.width, H = cv.height;
+  for (const w of WAVES) {
+    const cy = H * w.yR;
+    for (let i = 0; i < w.count; i++) {
+      const frac = i / w.count;
+      const x = frac * W;
+      const baseY = cy + Math.sin(frac * Math.PI * 2 * w.freq + w.phase + t * w.spd) * w.amp;
+      const jitter = (Math.random() - 0.5) * w.spread;
+      const y = baseY + jitter;
+      const prox = 1 - Math.abs(jitter) / w.spread;
+      const a = prox * (0.45 + Math.random() * 0.55);
+
+      if (Math.random() > 0.82) {
+        cx.shadowBlur = 5 + Math.random() * 9;
+        cx.shadowColor = `hsl(${w.hue},100%,65%)`;
+      }
+      cx.beginPath();
+      cx.arc(x, y, 0.6 + Math.random() * 0.9, 0, Math.PI * 2);
+      cx.fillStyle = `hsla(${w.hue + Math.random()*14 - 7},100%,${52 + prox*22}%,${(a*0.85).toFixed(2)})`;
+      cx.fill();
+      cx.shadowBlur = 0;
+    }
+  }
+}
+
+function drawFloaters() {
+  const W = cv.width, H = cv.height;
+  for (const f of FLOATERS) {
+    f.y -= f.vy;
+    if (f.y < 0) { f.y = 1; f.x = Math.random(); }
+    cx.shadowBlur = 5;
+    cx.shadowColor = `hsla(355,100%,58%,0.7)`;
+    cx.beginPath();
+    cx.arc(f.x * W, f.y * H, f.r, 0, Math.PI * 2);
+    cx.fillStyle = `hsla(355,100%,64%,${f.a})`;
+    cx.fill();
+    cx.shadowBlur = 0;
+  }
+}
+
+(function loop() {
+  cx.clearRect(0, 0, cv.width, cv.height);
+  drawWaves();
+  drawFloaters();
+  t++;
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
