@@ -4,26 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mohammed Zayed — Portfolio</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.24.0/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html, body { overflow-x: hidden; }
+
     body {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Syne', Arial, sans-serif;
       background: #0a0a0a;
       color: #e8e6e0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 4rem 1.5rem;
+      padding: 3rem 1.25rem;
     }
 
     .container {
       width: 100%;
       max-width: 860px;
+      overflow-x: hidden;
     }
 
     /* TOP */
@@ -83,6 +86,10 @@
     }
 
     /* GRID */
+    .grid-item { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -171,7 +178,11 @@
     }
 
     /* LANGUAGES */
-    .lang-grid {
+    .lang.grid-item { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -261,9 +272,21 @@
     .lightbox-close:hover { color: #fff; }
 
     /* RESPONSIVE */
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .top { flex-direction: column; }
-      .grid { grid-template-columns: 1fr; }
+      .grid-item { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid { grid-template-columns: 1fr; gap: 0; }
+      .name { font-size: 22px; }
+      .about { max-width: 100%; }
+      .lang.grid-item { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+
+    .grid { gap: 6px; }
+      .lang { font-size: 11px; padding: 6px 10px; }
     }
   </style>
 </head>
@@ -278,14 +301,16 @@
       <img src="profile.jpg" alt="Mohammed Zayed" onerror="this.parentElement.textContent='photo'" />
     </div>
     <div>
-      <p class="name">Mohammed Zayed Alsahli</p>
-      <p class="subtitle">Information Systems</p>
+      <p class="name">Mohammed Zayed</p>
+      <p class="subtitle">Information Systems · Class of 2027</p>
       <p class="about">Information Systems student focused on databases, low-level tooling, and reverse engineering. I build native DLL extensions, analyze binaries, and create tools people actually use.</p>
     </div>
   </div>
 
   <!-- GRID -->
   <div class="grid">
+
+    <div class="grid-item">
 
     <!-- PROJECTS -->
     <div>
